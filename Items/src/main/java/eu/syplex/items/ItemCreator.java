@@ -1,11 +1,15 @@
 package eu.syplex.items;
 
 import eu.syplex.common.ItemBuilder;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.Arrays;
 
 public class ItemCreator implements ItemBuilder {
 
@@ -18,23 +22,39 @@ public class ItemCreator implements ItemBuilder {
     }
 
     @Override
-    public ItemBuilder name(@NotNull String name) {
-        return null;
+    public ItemBuilder name(@NotNull Component name) {
+        itemMeta.displayName(name);
+        return this;
+    }
+
+    @Override
+    public ItemBuilder lore(@NotNull Component... lore) {
+        itemMeta.lore(Arrays.asList(lore));
+        return this;
     }
 
     @Override
     public ItemBuilder enchant(@NotNull Enchantment enchantment, int level) {
-        return null;
+        itemMeta.addEnchant(enchantment, level, true);
+        return this;
+    }
+
+    @Override
+    public ItemBuilder enchantUnsafe(@NotNull Enchantment enchantment, int level, boolean ignoreLevelRestriction) {
+        itemMeta.addEnchant(enchantment, level, ignoreLevelRestriction);
+        return this;
     }
 
     @Override
     public ItemBuilder amount(int amount) {
-        return null;
+        itemStack.setAmount(amount);
+        return this;
     }
 
     @Override
     public ItemBuilder durability(short durability) {
-        return null;
+        ((Damageable) itemMeta).setDamage(durability);
+        return this;
     }
 
     @Override
