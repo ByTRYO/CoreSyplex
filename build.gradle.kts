@@ -6,10 +6,6 @@ plugins {
 group = "eu.syplex"
 version = "1.0.0"
 
-dependencies {
-    api(project(":Common"))
-}
-
 subprojects {
     apply {
         plugin<JavaPlugin>()
