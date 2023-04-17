@@ -13,6 +13,11 @@ subprojects {
     }
 }
 
+dependencies {
+    api(project(":common"))
+    api(project(":item"))
+}
+
 allprojects {
     repositories {
         mavenCentral()
