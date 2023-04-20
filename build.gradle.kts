@@ -1,6 +1,7 @@
 plugins {
     java
     `java-library`
+    id("io.freefair.lombok") version "8.0.1"
 }
 
 group = "eu.syplex"
