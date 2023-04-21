@@ -7,5 +7,6 @@ module Core.item.main {
     requires org.jetbrains.annotations;
     requires org.bukkit;
     requires net.kyori.adventure;
+    requires net.kyori.examination.api;
     requires Core.common.main;
 }
