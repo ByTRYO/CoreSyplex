@@ -82,11 +82,11 @@ public abstract class ItemCreator implements Builder<ItemStack> {
 
     /**
      * Enchants the item with a specific {@link Enchantment} and level. This implementation only allows the default values that are currently implemented in the game.
+     * Note: To break the games' laws and enchant with a higher level than the maximum defaults, please use {@link #enchantUnsafe(Enchantment, int)}
      *
      * @param enchantment The enchantment
      * @param level       The level
      * @return This current object instance
-     * @implNote To break the games' laws and enchant with a higher level than the maximum defaults, please use {@link #enchantUnsafe(Enchantment, int)}
      */
     public abstract ItemCreator enchant(@NotNull Enchantment enchantment, int level);
 
