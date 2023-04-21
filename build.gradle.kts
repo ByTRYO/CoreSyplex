@@ -1,22 +1,25 @@
 plugins {
     java
+    `maven-publish`
     `java-library`
+
     id("io.freefair.lombok") version "8.0.1"
 }
 
-group = "eu.syplex"
+group = "eu.syplex.core"
 version = "1.0.0-SNAPSHOT"
+
+dependencies {
+    api(project(":common"))
+    api(project(":item"))
+}
 
 subprojects {
     apply {
         plugin<JavaPlugin>()
         plugin<JavaLibraryPlugin>()
+        plugin<MavenPublishPlugin>()
     }
-}
-
-dependencies {
-    api(project(":common"))
-    api(project(":item"))
 }
 
 allprojects {
