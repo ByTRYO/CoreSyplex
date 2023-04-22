@@ -4,7 +4,6 @@ import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.minimessage.MiniMessage
 import org.apache.commons.lang3.Validate
 import org.bukkit.Bukkit
-import org.bukkit.Color
 import org.bukkit.entity.Player
 import org.bukkit.scoreboard.Criteria
 import org.bukkit.scoreboard.DisplaySlot
@@ -59,20 +58,11 @@ abstract class AbstractScoreboard {
 
 
     /**
-     * Create a team on the scoreboard. Color.WHITE is used as the color for the team.
-     * @param name The name for the new team. This name cannot be longer than 16 characters
-     * @return The created eu.syplex.scoreboard.Team
-     */
-    fun createTeam(name: String, display: Component): Team {
-        return createTeam(name, display, Color.WHITE)
-    }
-
-    /**
      * Create a team on the scoreboard.
      * @param name The name for the new team. This name cannot be longer than 16 characters
      * @return The created eu.syplex.scoreboard.Team
      */
-    fun createTeam(name: String, display: Component, color: Color): Team {
+    fun createTeam(name: String, display: Component): Team {
         for (team in teams) {
             if (!team.name.equals(name, true)) continue
             throw IllegalArgumentException("A team with this name already exists! ($name)")
@@ -80,7 +70,7 @@ abstract class AbstractScoreboard {
 
         if (name.length > 16) throw IllegalArgumentException("The length of a team name cannot be longer than 16 chars! (${name.length} chars given)")
 
-        val team = Team(name, display, color, this)
+        val team = Team(name, display, this)
         team.refresh()
         teams.add(team)
         return team
@@ -202,7 +192,7 @@ abstract class AbstractScoreboard {
         teams.forEach { team -> team.refresh(scoreboard) }
     }
 
-    protected fun activePlayers(): List<UUID> {
+    fun activePlayers(): List<UUID> {
         return activePlayers
     }
 
