@@ -50,6 +50,10 @@ allprojects {
         toolchain.languageVersion.set(JavaLanguageVersion.of(17))
     }
 
+    tasks.javadoc {
+        options.encoding = Charsets.UTF_8.name()
+    }
+
     publish {
         useSyplexNexusRepos()
         publishComponent("java")
