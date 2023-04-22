@@ -8,4 +8,5 @@ module Core.common.main {
     requires org.bukkit;
     requires org.jetbrains.annotations;
     requires net.kyori.adventure;
+    requires kotlin.stdlib;
 }

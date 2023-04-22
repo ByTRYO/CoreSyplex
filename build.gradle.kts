@@ -5,6 +5,8 @@ plugins {
     `maven-publish`
     `java-library`
 
+    kotlin("jvm") version "1.8.20"
+
     id("io.freefair.lombok") version "8.0.1"
     id("eu.syplex.publish") version "1.0.2"
 }
@@ -15,7 +17,10 @@ version = "1.0.0-SNAPSHOT"
 dependencies {
     api(project(":common"))
     api(project(":item"))
+    api(project(":scoreboard"))
 }
+
+kotlin.jvmToolchain(17)
 
 subprojects {
     apply {
@@ -29,12 +34,15 @@ subprojects {
 allprojects {
     repositories {
         mavenCentral()
+        gradlePluginPortal()
         maven("https://tp.syplex.eu/repository/maven-public/")
         maven("https://repo.papermc.io/repository/maven-public/")
     }
 
     dependencies {
+        api(project(":common"))
         implementation("org.jetbrains:annotations:24.0.0")
+        implementation("org.jetbrains.kotlin:kotlin-stdlib:1.8.20")
     }
 
     java {
