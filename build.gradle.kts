@@ -40,7 +40,6 @@ allprojects {
     }
 
     dependencies {
-        api(project(":common"))
         implementation("org.jetbrains:annotations:24.0.0")
         implementation("org.jetbrains.kotlin:kotlin-stdlib:1.8.20")
     }
