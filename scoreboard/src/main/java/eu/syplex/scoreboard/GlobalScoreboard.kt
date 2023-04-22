@@ -18,7 +18,7 @@ open class GlobalScoreboard(private var title: Supplier<Component>, private var 
      */
     fun updateScoreboard() {
         createIfNull()
-        if (lines != null) updateScoreboard(toBukkitScoreboard(), lines.get())
+        updateScoreboard(toBukkitScoreboard(), lines.get())
     }
 
     /**
@@ -47,9 +47,7 @@ open class GlobalScoreboard(private var title: Supplier<Component>, private var 
      * Creates the Bukkit Scoreboard for this scoreboard to use
      */
     private fun createIfNull() {
-        if (this.scoreboard != null) return
-
-        val scoreboardManager = Bukkit.getServer().scoreboardManager ?: return
+        val scoreboardManager = Bukkit.getServer().scoreboardManager
         scoreboard = scoreboardManager.newScoreboard
 
         for (uuid in activePlayers()) {
