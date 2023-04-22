@@ -37,6 +37,8 @@ public class Pair<A, B> {
     /**
      * Creates a new pair of data using the constructor of {@link Pair}.
      *
+     * @param <A>    The first datatype
+     * @param <B>    The second datatype
      * @param first  The first peace of data
      * @param second The second peace of data
      * @return the pair

@@ -36,6 +36,9 @@ public class Triplet<A, B, C> extends Pair<A, B> {
     /**
      * Creates a new triplet of data using the constructor of {@link Triplet}.
      *
+     * @param <A>    The first datatype
+     * @param <B>    The second datatype
+     * @param <C>    The third datatype
      * @param first  The first peace of data
      * @param second The second peace of data
      * @param third  The third peace of data

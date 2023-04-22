@@ -37,6 +37,10 @@ public class Quartet<A, B, C, D> extends Triplet<A, B, C> {
     /**
      * Creates a new quartet of data using the constructor of {@link Quartet}.
      *
+     * @param <A>    The first datatype
+     * @param <B>    The second datatype
+     * @param <C>    The third datatype
+     * @param <D>    The fourth datatype
      * @param first  The first peace of data
      * @param second The second peace of data
      * @param third  The third peace of data
