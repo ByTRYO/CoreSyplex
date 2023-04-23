@@ -72,7 +72,8 @@ public abstract class PlexBoard {
     /**
      * Create a team on the scoreboard.
      *
-     * @param name The name for the new team. This name cannot be longer than 16 characters
+     * @param name    The name for the new team. This name cannot be longer than 16 characters
+     * @param display The display component
      * @return The created {@link PlexTeam}
      * @throws DuplicateTeamException   If a team with that name already exists
      * @throws TeamNameTooLongException If the team's name is longer than 16 characters
@@ -135,6 +136,8 @@ public abstract class PlexBoard {
     /**
      * Update a scoreboard with a list of lines. These lines must be in reverse order.
      *
+     * @param scoreboard The scoreboard to update
+     * @param lines      The list of lines
      * @throws LineTooLongException If a component's content within the lines array is over 64 characters, this exception is thrown.
      */
     protected void updateScoreboard(@NotNull Scoreboard scoreboard, List<Component> lines) throws LineTooLongException {

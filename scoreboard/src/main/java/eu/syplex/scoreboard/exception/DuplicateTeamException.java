@@ -5,6 +5,11 @@ package eu.syplex.scoreboard.exception;
  */
 public class DuplicateTeamException extends Exception {
 
+    /**
+     * Instantiates a new {@link DuplicateTeamException} with the conflicting name.
+     *
+     * @param name The conflicting name
+     */
     public DuplicateTeamException(String name) {
         super("A team with the name '" + name + "' is already present on this scoreboard!");
     }

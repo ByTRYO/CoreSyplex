@@ -21,6 +21,12 @@ public class PersonalPlexBoard extends PlexBoard {
 
     private final Map<UUID, Scoreboard> playerScoreboard = new HashMap<>();
 
+    /**
+     * Instantiates a new {@link PersonalPlexBoard} with a title and a list of lines for a specific player.
+     *
+     * @param title The title
+     * @param lines The list aof lines
+     */
     public PersonalPlexBoard(Function<Player, Component> title, Function<Player, List<Component>> lines) {
         this.title = title;
         this.lines = lines;

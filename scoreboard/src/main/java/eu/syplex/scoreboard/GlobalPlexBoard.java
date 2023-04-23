@@ -21,7 +21,13 @@ public class GlobalPlexBoard extends PlexBoard {
 
     private Scoreboard scoreboard;
 
-    public GlobalPlexBoard(Supplier<Component> title, Supplier<List<Component>> lines) {
+    /**
+     * Instantiates a new {@link GlobalPlexBoard} with a supplier for the title and lines.
+     *
+     * @param title The supplier for the title
+     * @param lines The supplier for the lines.
+     */
+    public GlobalPlexBoard(@NotNull Supplier<Component> title, @NotNull Supplier<List<Component>> lines) {
         this.title = title;
         this.lines = lines;
     }
@@ -54,6 +60,8 @@ public class GlobalPlexBoard extends PlexBoard {
 
     /**
      * Update the scoreboard. Call this when the scoreboard contents should change in some way.
+     *
+     * @throws LineTooLongException Thrown if {@link #updateScoreboard(Scoreboard, List)} fails
      */
     public void updateScoreboard() throws LineTooLongException {
         createIfNull();

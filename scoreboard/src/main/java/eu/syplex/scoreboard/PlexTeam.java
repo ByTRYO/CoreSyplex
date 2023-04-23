@@ -23,6 +23,13 @@ public class PlexTeam {
     private final List<UUID> entities = new ArrayList<>();
     private final PlexBoard board;
 
+    /**
+     * Instantiates a new {@link PlexTeam} with a name, display and the scoreboard it will belong to.
+     *
+     * @param name    The name
+     * @param display The display of the team
+     * @param board   the scoreboard
+     */
     protected PlexTeam(String name, Component display, PlexBoard board) {
         this.name = name;
         this.display = display;
