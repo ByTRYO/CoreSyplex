@@ -146,19 +146,16 @@ public abstract class PlexBoard {
      * @throws LineTooLongException     If a component's content within the lines array is over 64 characters, this exception is thrown.
      * @throws NotTranslatableException Thrown if an input cannot be parsed
      */
-    protected void updateScoreboard(@NotNull Scoreboard scoreboard, List<Component> lines) throws LineTooLongException, NotTranslatableException {
+    protected void updateScoreboard(@NotNull Scoreboard scoreboard, @NotNull List<Component> lines) throws LineTooLongException, NotTranslatableException {
         Objective objective = dummyObjective(scoreboard);
-        Component title = title(scoreboard);
-
-        objective.displayName(title);
+        objective.displayName(title(scoreboard));
 
         if (previousLines.containsKey(scoreboard)) {
-            if (previousLines.get(scoreboard).equals(lines)) { // Are the lines the same? Don't take up server resources to change absolutely nothing
-                updateTeams(scoreboard); // Update the teams anyway
+            if (previousLines.get(scoreboard).equals(lines)) {
+                updateTeams(scoreboard);
                 return;
             }
 
-            // Size difference means unregister objective to reset and re-register teams correctly
             if (previousLines.get(scoreboard).size() != lines.size()) {
                 scoreboard.clearSlot(DisplaySlot.SIDEBAR);
                 scoreboard.getEntries().forEach(scoreboard::resetScores);
@@ -167,49 +164,62 @@ public abstract class PlexBoard {
                 });
             }
         }
-
-        // This is a copy instead of reference to prevent previousLines equality check from unexpectedly failing
         previousLines.put(scoreboard, new ArrayList<>(lines));
 
-        List<Component> reversed = new ArrayList<>(lines);
-        Collections.reverse(reversed);
+        List<Component> reversedLines = new ArrayList<>(lines);
+        Collections.reverse(reversedLines);
 
-        objective.setDisplaySlot(DisplaySlot.SIDEBAR);
-
-        List<Component> options = colorOptions(reversed.size());
-
+        List<Component> colorCodeOptions = colorOptions(reversedLines.size());
         int score = 1;
-        for (Component entry : reversed) {
-            String serialized = translator.serialize(entry);
+
+        for (Component component : reversedLines) {
+            String entry = translator.serialize(component);
+            if (entry == null) break;
+
+            if (entry.length() > maxLineLength) throw new LineTooLongException(entry, maxLineLength);
+
+            Component colored = color(entry);
+            Team team = scoreboard.getTeam("line" + score);
+
+            String serialized = translator.serialize(colored);
             if (serialized == null) break;
 
-            String withoutColors = translator.stripTags(serialized);
-            if (withoutColors.length() > 16) throw new LineTooLongException(withoutColors, withoutColors.length());
+            String prefix;
+            String suffix = "";
 
-            String suffix = StringUtils.left(withoutColors.substring(16), 64);
+            int cutOff = 64;
+            if (entry.length() <= cutOff) {
+                prefix = serialized;
 
-            Team team = scoreboard.getTeam("line" + score);
+            } else {
+                prefix = serialized.substring(0, cutOff);
+
+                if (prefix.endsWith(">")) {
+                    prefix = prefix.substring(0, prefix.length() - 1); // TODO: get tag length
+                    suffix = "<" + suffix;
+                }
+
+                suffix = StringUtils.left(suffix + serialized.substring(cutOff), cutOff);
+            }
+
+            String toAdd = translator.serialize(colorCodeOptions.get(score));
+            if (toAdd == null) break;
+
             if (team != null) {
                 team.getEntries().forEach(team::removeEntry);
-                String toAdd = translator.serialize(options.get(score));
-                if (toAdd == null) break;
                 team.addEntry(toAdd);
 
             } else {
                 team = scoreboard.registerNewTeam("line" + score);
-                String toAdd = translator.serialize(options.get(score));
-                if (toAdd == null) break;
-
                 team.addEntry(toAdd);
                 objective.getScore(toAdd).setScore(score);
             }
 
-            team.prefix(translator.translate(withoutColors));
+            team.prefix(translator.translate(prefix));
             team.suffix(translator.translate(suffix));
 
-            score++;
+            updateTeams(scoreboard);
         }
-        updateTeams(scoreboard);
     }
 
     /**
