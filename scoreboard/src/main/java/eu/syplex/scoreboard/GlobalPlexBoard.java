@@ -1,5 +1,6 @@
 package eu.syplex.scoreboard;
 
+import eu.syplex.common.exception.NotTranslatableException;
 import eu.syplex.scoreboard.exception.LineTooLongException;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
@@ -34,17 +35,18 @@ public class GlobalPlexBoard extends PlexBoard {
 
     // MARK: Public API
 
+
     /**
      * {@inheritDoc}
+     *
+     * @param player The player to add
+     * @throws NotTranslatableException Is thrown if {@link #updateScoreboard()} fails with this exception
+     * @throws LineTooLongException     Is thrown if {@link #updateScoreboard()} fails with this exception
      */
     @Override
-    public void addPlayer(@NotNull Player player) {
+    public void addPlayer(@NotNull Player player) throws NotTranslatableException, LineTooLongException {
         super.addPlayer(player);
-        try {
-            updateScoreboard();
-        } catch (LineTooLongException exception) {
-            exception.printStackTrace();
-        }
+        updateScoreboard();
 
         player.setScoreboard(scoreboard);
     }
@@ -61,9 +63,10 @@ public class GlobalPlexBoard extends PlexBoard {
     /**
      * Update the scoreboard. Call this when the scoreboard contents should change in some way.
      *
-     * @throws LineTooLongException Thrown if {@link #updateScoreboard(Scoreboard, List)} fails
+     * @throws LineTooLongException     Thrown if {@link #updateScoreboard(Scoreboard, List)} fails
+     * @throws NotTranslatableException Thrown if {@link #updateScoreboard(Scoreboard, List)} fails with this exception
      */
-    public void updateScoreboard() throws LineTooLongException {
+    public void updateScoreboard() throws LineTooLongException, NotTranslatableException {
         createIfNull();
         if (lines != null) updateScoreboard(toBukkitScoreboard(), lines.get());
     }
