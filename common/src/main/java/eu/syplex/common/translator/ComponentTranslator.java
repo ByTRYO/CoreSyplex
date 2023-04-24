@@ -23,6 +23,9 @@ public class ComponentTranslator implements Translatable<Component>, Serializabl
 
     private static ComponentTranslator componentTranslator = null;
 
+    /**
+     * Instantiates a new singleton {@link ComponentTranslator}.
+     */
     protected ComponentTranslator() {
         componentTranslator = this;
     }

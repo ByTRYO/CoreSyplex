@@ -37,6 +37,8 @@ public abstract class PlexBoard {
      * Add a player to the scoreboard.
      *
      * @param player The player to add
+     * @throws NotTranslatableException Thrown if something cannot be translated into something else
+     * @throws LineTooLongException     Thrown if a given input is longer than the maximum allowed value defined by minecraft
      */
     public void addPlayer(@NotNull Player player) throws NotTranslatableException, LineTooLongException {
         if (activePlayers.contains(player.getUniqueId())) return;
@@ -141,7 +143,8 @@ public abstract class PlexBoard {
      *
      * @param scoreboard The scoreboard to update
      * @param lines      The list of lines
-     * @throws LineTooLongException If a component's content within the lines array is over 64 characters, this exception is thrown.
+     * @throws LineTooLongException     If a component's content within the lines array is over 64 characters, this exception is thrown.
+     * @throws NotTranslatableException Thrown if an input cannot be parsed
      */
     protected void updateScoreboard(@NotNull Scoreboard scoreboard, List<Component> lines) throws LineTooLongException, NotTranslatableException {
         Objective objective = dummyObjective(scoreboard);

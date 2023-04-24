@@ -14,7 +14,11 @@ public class ComplexComponentTranslator extends ComponentTranslator {
 
     private static ComplexComponentTranslator componentTranslator = null;
 
+    /**
+     * Instantiates a new singleton {@link ComplexComponentTranslator}.
+     */
     protected ComplexComponentTranslator() {
+        componentTranslator = this;
     }
 
     /**
