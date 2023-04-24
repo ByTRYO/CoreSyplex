@@ -1,5 +1,8 @@
 package eu.syplex.scoreboard;
 
+import eu.syplex.common.exception.NotTranslatableException;
+import eu.syplex.common.translator.ComplexComponentTranslator;
+import eu.syplex.common.translator.ComponentTranslator;
 import eu.syplex.scoreboard.exception.DuplicateTeamException;
 import eu.syplex.scoreboard.exception.LineTooLongException;
 import eu.syplex.scoreboard.exception.TeamNameTooLongException;
@@ -140,7 +143,7 @@ public abstract class PlexBoard {
      * @param lines      The list of lines
      * @throws LineTooLongException If a component's content within the lines array is over 64 characters, this exception is thrown.
      */
-    protected void updateScoreboard(@NotNull Scoreboard scoreboard, List<Component> lines) throws LineTooLongException {
+    protected void updateScoreboard(@NotNull Scoreboard scoreboard, List<Component> lines) throws LineTooLongException, NotTranslatableException {
         Objective objective = dummyObjective(scoreboard);
         Component title = title(scoreboard);
 
@@ -174,8 +177,12 @@ public abstract class PlexBoard {
 
         int score = 1;
         for (Component entry : reversed) {
-            String serialized = miniMessage.serialize(entry);
-            if (serialized.length() > 16) throw new LineTooLongException(serialized, serialized.length());
+            String serialized = ComponentTranslator.translator().serialize(entry);
+            if (serialized == null) return;
+
+            String withoutColors = ComplexComponentTranslator.complexTranslator().stripTags(serialized);
+
+            if (withoutColors.length() > 16) throw new LineTooLongException(withoutColors, withoutColors.length());
 
             Team team = scoreboard.getTeam("line" + score);
             if (team != null) {

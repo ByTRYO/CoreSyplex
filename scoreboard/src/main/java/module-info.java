@@ -10,4 +10,5 @@ module Core.scoreboard.main {
     requires org.apache.commons.lang3;
     requires kotlin.stdlib;
     requires net.kyori.adventure.text.minimessage;
+    requires Core.common.main;
 }
