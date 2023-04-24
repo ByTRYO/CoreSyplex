@@ -2,7 +2,6 @@ package eu.syplex.scoreboard;
 
 import eu.syplex.common.exception.NotTranslatableException;
 import eu.syplex.common.translator.ComplexComponentTranslator;
-import eu.syplex.common.translator.ComponentTranslator;
 import eu.syplex.scoreboard.exception.DuplicateTeamException;
 import eu.syplex.scoreboard.exception.LineTooLongException;
 import eu.syplex.scoreboard.exception.TeamNameTooLongException;
@@ -10,6 +9,7 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.minimessage.tag.standard.StandardTags;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -186,6 +186,8 @@ public abstract class PlexBoard {
             String withoutColors = translator.stripTags(serialized);
             if (withoutColors.length() > 16) throw new LineTooLongException(withoutColors, withoutColors.length());
 
+            String suffix = StringUtils.left(withoutColors.substring(16), 64);
+
             Team team = scoreboard.getTeam("line" + score);
             if (team != null) {
                 team.getEntries().forEach(team::removeEntry);
@@ -196,11 +198,14 @@ public abstract class PlexBoard {
             } else {
                 team = scoreboard.registerNewTeam("line" + score);
                 String toAdd = translator.serialize(options.get(score));
-                if(toAdd == null) break;
+                if (toAdd == null) break;
 
                 team.addEntry(toAdd);
                 objective.getScore(toAdd).setScore(score);
             }
+
+            team.prefix(translator.translate(withoutColors));
+            team.suffix(translator.translate(suffix));
 
             score++;
         }
