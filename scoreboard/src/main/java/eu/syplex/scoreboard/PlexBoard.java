@@ -29,7 +29,7 @@ public abstract class PlexBoard {
     private final Map<Scoreboard, List<Component>> previousLines = new HashMap<>();
     private final int maxLineLength = 128;
 
-    private final MiniMessage miniMessage = MiniMessage.miniMessage();
+    private final ComplexComponentTranslator translator = ComplexComponentTranslator.complexTranslator();
 
     // MARK: Public API
 
@@ -180,22 +180,26 @@ public abstract class PlexBoard {
 
         int score = 1;
         for (Component entry : reversed) {
-            String serialized = ComponentTranslator.translator().serialize(entry);
-            if (serialized == null) return;
+            String serialized = translator.serialize(entry);
+            if (serialized == null) break;
 
-            String withoutColors = ComplexComponentTranslator.complexTranslator().stripTags(serialized);
-
+            String withoutColors = translator.stripTags(serialized);
             if (withoutColors.length() > 16) throw new LineTooLongException(withoutColors, withoutColors.length());
 
             Team team = scoreboard.getTeam("line" + score);
             if (team != null) {
                 team.getEntries().forEach(team::removeEntry);
-                team.addEntry(miniMessage.serialize(options.get(score)));
+                String toAdd = translator.serialize(options.get(score));
+                if (toAdd == null) break;
+                team.addEntry(toAdd);
 
             } else {
                 team = scoreboard.registerNewTeam("line" + score);
-                team.addEntry(miniMessage.serialize(options.get(score)));
-                objective.getScore(miniMessage.serialize(options.get(score))).setScore(score);
+                String toAdd = translator.serialize(options.get(score));
+                if(toAdd == null) break;
+
+                team.addEntry(toAdd);
+                objective.getScore(toAdd).setScore(score);
             }
 
             score++;
