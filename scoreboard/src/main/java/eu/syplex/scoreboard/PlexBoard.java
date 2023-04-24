@@ -38,7 +38,7 @@ public abstract class PlexBoard {
      *
      * @param player The player to add
      */
-    public void addPlayer(@NotNull Player player) {
+    public void addPlayer(@NotNull Player player) throws NotTranslatableException, LineTooLongException {
         if (activePlayers.contains(player.getUniqueId())) return;
         activePlayers.add(player.getUniqueId());
     }
