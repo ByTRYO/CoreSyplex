@@ -68,7 +68,7 @@ public class ComponentTranslator implements Translatable<Component>, Serializabl
     }
 
     /**
-     * Translates the input legacy string into a {@link TextComponent}. This method is using the color char '&' to detect colors. <br>
+     * Translates the input legacy string into a {@link TextComponent}. This method is using the color char {@link LegacyComponentSerializer#AMPERSAND_CHAR} to detect colors. <br>
      * If an adventure api based string has to be translated into a {@link Component}, use {@link ComponentTranslator#translate(Object)}.
      *
      * @param input The legacy input
