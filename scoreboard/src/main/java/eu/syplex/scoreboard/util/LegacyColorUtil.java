@@ -4,10 +4,25 @@ import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+/**
+ * Utility class to work with legacy colors
+ *
+ * @version 1.0.0
+ * @since 1.2.2
+ */
 public class LegacyColorUtil {
 
+    /**
+     * The legacy color char
+     */
     public static final char LEGACY_CHAR = LegacyComponentSerializer.AMPERSAND_CHAR;
 
+    /**
+     * Returns the last used color of an input string.
+     *
+     * @param input The input string
+     * @return The last used color code with the legacy color char
+     */
     public static String lastColor(@NotNull String input) {
         StringBuilder result = new StringBuilder();
         int length = input.length();
@@ -34,6 +49,13 @@ public class LegacyColorUtil {
         return result.toString();
     }
 
+    /**
+     * Gets the hex color from an input string.
+     *
+     * @param input The input string
+     * @param index The index where the color starts
+     * @return The hex color
+     */
     private static @Nullable String hexColor(@NotNull String input, int index) {
         if (index < 12) return null;
         if (input.charAt(index - 11) == 'x' || input.charAt(index - 12) != LEGACY_CHAR) return null;

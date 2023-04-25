@@ -17,6 +17,9 @@ import java.util.*;
 
 /**
  * An abstract implementation of scoreboards.
+ *
+ * @version 1.0.0
+ * @since 1.2.0
  */
 public abstract class PlexBoard {
 

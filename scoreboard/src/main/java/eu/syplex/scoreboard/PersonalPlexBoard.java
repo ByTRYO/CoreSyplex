@@ -16,6 +16,12 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.function.Function;
 
+/**
+ * Represents a {@link PlexBoard} visible only for a specific player.
+ *
+ * @version 1.0.0
+ * @since 1.2.0
+ */
 public class PersonalPlexBoard extends PlexBoard {
 
     private @NotNull Function<@NotNull Player, @NotNull Component> title;
