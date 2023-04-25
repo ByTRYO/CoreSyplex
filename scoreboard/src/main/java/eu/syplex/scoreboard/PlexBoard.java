@@ -129,8 +129,8 @@ public abstract class PlexBoard {
                 objective.getScore(colorCodeOptions.get(score)).setScore(score);
             }
 
-            team.prefix(ComponentTranslator.translator().translate(prefix));
-            team.suffix(ComponentTranslator.translator().translate(suffix));
+            team.prefix(ComponentTranslator.translator().translateLegacy(prefix));
+            team.suffix(ComponentTranslator.translator().translateLegacy(suffix));
 
             score++;
         }
