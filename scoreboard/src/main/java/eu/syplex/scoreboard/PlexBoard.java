@@ -15,12 +15,13 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
+/**
+ * An abstract implementation of scoreboards.
+ */
 public abstract class PlexBoard {
 
     private final List<UUID> associatedPlayers = new ArrayList<>();
     private final Map<Scoreboard, List<String>> legacyLines = new HashMap<>();
-
-    private final int maxLineLength = 128;
 
     // MARK: Public API
 
@@ -94,6 +95,7 @@ public abstract class PlexBoard {
 
         int score = 1;
         for (String entry : reversedLines) {
+            int maxLineLength = 128;
             if (entry.length() > maxLineLength) throw new LineTooLongException(entry, maxLineLength);
 
             entry = ComponentTranslator.translator().serializeLegacy(color(entry));
