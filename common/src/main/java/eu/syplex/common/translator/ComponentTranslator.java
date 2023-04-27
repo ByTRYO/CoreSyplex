@@ -77,7 +77,17 @@ public class ComponentTranslator implements Translatable<Component>, Serializabl
      * @param input The legacy input
      * @return A {@link TextComponent}
      */
-    public @NotNull TextComponent translateLegacy(String input) {
+    public @NotNull TextComponent translateLegacy(@NotNull String input) {
         return LegacyComponentSerializer.legacyAmpersand().deserialize(input);
+    }
+
+    /**
+     * Serializes the input {@link Component} into a legacy string.
+     *
+     * @param input The component
+     * @return The legacy string
+     */
+    public @NotNull String serializeLegacy(@NotNull Component input) {
+        return LegacyComponentSerializer.legacyAmpersand().serialize(input);
     }
 }

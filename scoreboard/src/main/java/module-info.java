@@ -8,8 +8,9 @@ module Core.scoreboard.main {
     requires kotlin.stdlib;
 
     requires org.bukkit;
+    requires org.apache.commons.lang3;
     requires net.kyori.examination.api;
     requires net.kyori.adventure;
     requires net.kyori.adventure.text.minimessage;
-    requires org.apache.commons.lang3;
+    requires net.kyori.adventure.text.serializer.legacy;
 }
