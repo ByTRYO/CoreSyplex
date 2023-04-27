@@ -1,5 +1,4 @@
 import eu.syplex.Publish
-import io.freefair.gradle.plugins.lombok.LombokPlugin
 
 plugins {
     java
@@ -8,7 +7,6 @@ plugins {
 
     kotlin("jvm") version "1.8.20"
 
-    id("io.freefair.lombok") version "8.0.1"
     id("eu.syplex.publish") version "1.0.2"
 }
 
@@ -29,7 +27,6 @@ subprojects {
         plugin<JavaLibraryPlugin>()
         plugin<MavenPublishPlugin>()
         plugin<Publish>()
-        plugin<LombokPlugin>()
     }
 }
 
