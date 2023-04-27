@@ -1,4 +1,5 @@
 import eu.syplex.Publish
+import io.freefair.gradle.plugins.lombok.LombokPlugin
 
 plugins {
     java
@@ -28,6 +29,7 @@ subprojects {
         plugin<JavaLibraryPlugin>()
         plugin<MavenPublishPlugin>()
         plugin<Publish>()
+        plugin<LombokPlugin>()
     }
 }
 
