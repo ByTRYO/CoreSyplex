@@ -60,7 +60,7 @@ public class ItemBuilder extends ItemCreator {
      */
     @Override
     public ItemCreator lore(@NotNull TextComponent... components) {
-        itemStack.lore(Arrays.asList(components));
+        itemMeta.lore(Arrays.asList(components));
         return this;
     }
 
