@@ -13,6 +13,7 @@ module Core.common.main {
     requires org.bukkit;
     requires kotlin.stdlib;
     requires org.jetbrains.annotations;
+    requires net.kyori.examination.api;
     requires net.kyori.adventure;
     requires net.kyori.adventure.text.minimessage;
     requires net.kyori.adventure.text.serializer.legacy;
