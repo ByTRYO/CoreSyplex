@@ -15,16 +15,17 @@ import org.jetbrains.annotations.NotNull;
 @Beta
 public abstract class NamedItem {
 
-    /**
-     * Adds the item to the inventory.
-     *
-     * @param inventory The inventory
-     */
-    public abstract void addToInventory(@NotNull Inventory inventory);
+	/**
+	 * Adds the item to the inventory.
+	 *
+	 * @param inventory The inventory
+	 */
+	public abstract void addToInventory(@NotNull Inventory inventory);
 
-    /**
-     * Returns the customized item as a bukkit item.
-     */
-    public abstract @NotNull ItemStack toBukkitItem();
+	/**
+	 * Returns the customized item as a bukkit item.
+	 * {@return The item as a bukkit item}
+	 */
+	public abstract @NotNull ItemStack toBukkitItem();
 
 }
