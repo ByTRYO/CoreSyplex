@@ -23,8 +23,8 @@ public abstract class NamedItem {
 	public abstract void addToInventory(@NotNull Inventory inventory);
 
 	/**
-	 * Returns the customized item as a bukkit item.
 	 * {@return The item as a bukkit item}
+	 * Returns the customized item as a bukkit item.
 	 */
 	public abstract @NotNull ItemStack toBukkitItem();
 
