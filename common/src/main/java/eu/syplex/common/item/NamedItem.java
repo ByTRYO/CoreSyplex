@@ -19,6 +19,7 @@ public abstract class NamedItem {
 
 	/**
 	 * Instantiates a new {@link NamedItem} and registers it into the {@link ItemRegistry}.
+	 * @param identifier The unique identifier
 	 */
 	public NamedItem(@NotNull String identifier) {
 		this.identifier = identifier;
