@@ -11,7 +11,7 @@ plugins {
 }
 
 group = "eu.syplex.core"
-version = "1.2.10"
+version = "1.2.11"
 
 dependencies {
     api(project(":common"))
