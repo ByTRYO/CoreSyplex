@@ -4,6 +4,7 @@ import eu.syplex.common.exception.NoMessageFoundException;
 import eu.syplex.common.exception.NoMessagesFoundException;
 import eu.syplex.common.translator.ComponentTranslator;
 import net.kyori.adventure.text.Component;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -80,25 +81,16 @@ public class Actionbar {
 	public void sendChanging(@NotNull Player player) throws NoMessagesFoundException {
 		if (messages.isEmpty()) throw new NoMessagesFoundException();
 
-		AtomicInteger current = new AtomicInteger(0);
-		new BukkitRunnable() {
-			final Component component = ComponentTranslator.translator().translateLegacy(messages.get(current.get()));
+		AtomicInteger i = new AtomicInteger();
+		Bukkit.getScheduler().runTaskTimerAsynchronously(plugin, () -> {
+			final Component component = ComponentTranslator.translator().translateLegacy(messages.get(i.get()));
+			player.sendActionBar(component);
 
-			@Override
-			public void run() {
-				player.sendActionBar(component);
+			Bukkit.getScheduler().runTaskLater(plugin, () -> player.sendActionBar(component), period / 2);
 
-				new BukkitRunnable() {
-					@Override
-					public void run() {
-						player.sendActionBar(component);
-					}
-				}.runTaskLater(plugin, period / 2);
-
-				if (current.get() == messages.size() - 1) current.set(0);
-				else current.getAndIncrement();
-			}
-		}.runTaskTimer(plugin, delay, period);
+			if (i.get() == messages.size() - 1) i.set(0);
+			else i.getAndIncrement();
+		}, delay, period);
 	}
 
 	/**
