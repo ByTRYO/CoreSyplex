@@ -93,9 +93,9 @@ public class Actionbar {
 					public void run() {
 						player.sendActionBar(component);
 					}
-				}.runTaskLater(plugin, delay / 2);
+				}.runTaskLater(plugin, period / 2);
 
-				if (current.get() == messages.size()) current.set(0);
+				if (current.get() == messages.size() - 1) current.set(0);
 				else current.getAndIncrement();
 			}
 		}.runTaskTimer(plugin, delay, period);
