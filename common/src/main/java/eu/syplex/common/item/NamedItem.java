@@ -15,6 +15,26 @@ import org.jetbrains.annotations.NotNull;
 @Beta
 public abstract class NamedItem {
 
+	private final String identifier;
+
+	/**
+	 * Instantiates a new {@link NamedItem} and registers it into the {@link ItemRegistry}.
+	 */
+	public NamedItem(@NotNull String identifier) {
+		this.identifier = identifier;
+		ItemRegistry.itemRegistry().register(this);
+	}
+
+	/**
+	 * Returns the unique identifier of this item. <br>
+	 * This is commonly used to identify the item in event listeners like the {@link ItemListener}.
+	 *
+	 * @return the unique identifier
+	 */
+	public String identifier() {
+		return identifier;
+	}
+
 	/**
 	 * Adds the item to the inventory.
 	 *
